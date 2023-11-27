@@ -1,0 +1,22 @@
+{
+    "sensitive-data": {
+        "name": "Element inside a list of values linked to a relationship",
+        "type": {
+            "description": {
+                "linked-to": {
+                    "object": "relationship",
+                    "label": "FRIEND_OF",
+                    "from": {
+                        "label": "Person"
+                    },
+                    "to": {
+                        "label": "Person"
+                    }
+                },
+                "key": "",
+                "value": ""
+            },
+            "element": "property"
+        }
+    }
+}
