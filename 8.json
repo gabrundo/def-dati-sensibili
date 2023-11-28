@@ -1,0 +1,16 @@
+{
+    "sensitive-data": {
+        "element": "label",
+        "description": {
+            "label": "HAVE_AFFAIR",
+            "from": {
+                "label": "Person",
+                "object": "node"
+            },
+            "to": {
+                "label": "Person",
+                "object": "node"
+            }
+        }
+    }
+}

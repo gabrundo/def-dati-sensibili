@@ -1,0 +1,26 @@
+{
+    "sensitive-data": [
+        {
+            "element": "property",
+            "description": {
+                "linked-to": {
+                    "label": "Person",
+                    "object": "node"
+                },
+                "key": "code",
+                "value": "RNDGRL"
+            }
+        },
+        {
+            "element": "property",
+            "description": {
+                "linked-to": {
+                    "label": "Person",
+                    "object": "node"
+                },
+                "key": "politics",
+                "value": "left-party"
+            }
+        }
+    ]
+}
