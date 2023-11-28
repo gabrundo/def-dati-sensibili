@@ -1,16 +1,13 @@
 {
     "sensitive-data": {
-        "name": "Value of a property linked to a node",
-        "type": {
-            "description": {
-                "linked-to": {
-                    "label": "User",
-                    "object": "node"
-                },
-                "key": "password",
-                "vlaue": "12345"
+        "element": "property",
+        "description": {
+            "linked-to": {
+                "label": "User",
+                "object": "node"
             },
-            "element": "property"
+            "key": "password",
+            "value": "12345"
         }
     }
 }

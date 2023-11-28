@@ -1,16 +1,13 @@
 {
     "sensitive-data": {
-        "name": "Key of a property linked to a node",
-        "type": {
-            "description": {
-                "linked-to": {
-                    "label": "Patient",
-                    "object": "node"
-                },
-                "key": "disease",
-                "value": "diabetes"
+        "element": "property",
+        "description": {
+            "linked-to": {
+                "label": "Patient",
+                "object": "node"
             },
-            "element": "property"
+            "key": "disease",
+            "value": "diabetes"
         }
     }
 }

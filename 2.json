@@ -1,17 +1,14 @@
 {
     "sensitive-data": {
-        "name": "Element inside a list of values linked to a node",
-        "type": {
-            "description": {
-                "linked-to": {
-                    "object": "node",
-                    "label": "User"
-                },
-                "list": true,
-                "key": "hobbies",
-                "value": "politics"
+        "element": "property",
+        "description": {
+            "linked-to": {
+                "object": "node",
+                "label": "User"
             },
-            "element": "property"
+            "list": true,
+            "key": "hobbies",
+            "value": "politics"
         }
     }
 }

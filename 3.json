@@ -1,22 +1,23 @@
 {
     "sensitive-data": {
-        "name": "Value of a property liked to a relationship",
+        "element": "property",
         "type": {
             "description": {
                 "linked-to": {
-                    "object": "relationship",
                     "label": "FRIEND_OF",
+                    "object": "relationship",
                     "from": {
-                        "label": "Person"
+                        "label": "Person",
+                        "object": "node"
                     },
                     "to": {
-                        "label": "Person"
+                        "label": "Person",
+                        "object": "node"
                     }
                 },
                 "key": "interest",
                 "value": "romantic"
-            },
-            "element": "property"
+            }
         }
     }
 }

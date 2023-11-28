@@ -1,22 +1,22 @@
 {
     "sensitive-data": {
-        "name": "Element inside a list of values linked to a relationship",
-        "type": {
-            "description": {
-                "linked-to": {
-                    "object": "relationship",
-                    "label": "FRIEND_OF",
-                    "from": {
-                        "label": "Person"
-                    },
-                    "to": {
-                        "label": "Person"
-                    }
+        "element": "property",
+        "description": {
+            "linked-to": {
+                "label": "FRIEND_OF",
+                "object": "relationship",
+                "from": {
+                    "label": "Person",
+                    "object": "node"
                 },
-                "key": "",
-                "value": ""
+                "to": {
+                    "label": "Person",
+                    "object": "node"
+                }
             },
-            "element": "property"
+            "list": true,
+            "key": "bond",
+            "value": "politics"
         }
     }
 }
