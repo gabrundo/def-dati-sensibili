@@ -5,11 +5,11 @@
             "linked-to": {
                 "label": "FRIEND_OF",
                 "object": "relationship",
-                "from": {
+                "start": {
                     "label": "Person",
                     "object": "node"
                 },
-                "to": {
+                "end": {
                     "label": "Person",
                     "object": "node"
                 }

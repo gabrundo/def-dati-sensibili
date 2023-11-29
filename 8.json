@@ -3,11 +3,11 @@
         "element": "label",
         "description": {
             "label": "HAVE_AFFAIR",
-            "from": {
+            "start": {
                 "label": "Person",
                 "object": "node"
             },
-            "to": {
+            "end": {
                 "label": "Person",
                 "object": "node"
             }

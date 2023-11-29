@@ -3,11 +3,11 @@
         "element": "relationship",
         "description": {
             "label": true,
-            "from": {
+            "start": {
                 "label": "Person",
                 "object": "node"
             },
-            "to": {
+            "end": {
                 "label": "Religion",
                 "object": "node"
             }
