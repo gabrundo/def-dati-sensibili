@@ -4,7 +4,7 @@ La motivazione per cui utilizzo un file di questa estensione è che questo tipo 
 
 Sopra la sintassi di un file json, definisco in insieme di regole per descrivere i dati sensibili in un istanza di dati.
 
-## Sintassi per esprimere dati sensibili
+## Sintassi per esprimere un dato sensibili
 Ogni file rappresenta tutti i dati sensibili per quell'istanza dei dati.
 In questi primi esempi suppongo che solo una particolare prorprietà, etichetta, nodo o arco possa rappresentare un informazione sensibile in un LPG.
 
@@ -15,7 +15,7 @@ In situazioni più complesse il valore di `sensitive-data` sarà un array di ogg
 Analizzo ora i vari casi dove ho un solo dato sensibile per ogni istanza dei dati e descrivo i valori per i nomi utilizzati.
 
 ### Proprietà
-Data l'istanza dei dati rappresentata in figura e il dato sensibile espresso in rosso
+Data l'istanza dei dati rappresentata in figura e il dato sensibile espresso in rosso.
 
 ![Proprietà senssibile associata ad un nodo](./img/1.png)
 
@@ -77,8 +77,58 @@ Se la proprietà è associata ad un arco all'interno del valore di `description`
 }
 ```
 
-Infine le coppie `key`, `value` rappresentano la chiave e il valore della proprietà che rappresenta il dato sensibile e il nome `list` con valore booleano specifica se il valore della proprità è una lista di valori o meno. 
+Infine le coppie `key`, `value` rappresentano la chiave e il valore della proprietà sensibile inoltre il valore del nome `list` specifica se il valore della proprità è una lista di valori o meno. 
 
 ### Etichette
+
+![Etichetta sensibile associata ad un nodo](./img/7.png)
+
+```json
+{
+    "sensitive-data": {
+        "element": "label",
+        "description": {
+            "linked-to": {
+                "label": "Eterosexual",
+                "object": "node",
+                "multiple-labels": true
+            }
+        }
+    }
+}
+```
+
+Come già accennato per le proprietà lo scopo di molte coppie nome, valore reasta lo stesso.
+Dal momento che il valore di `element` è *label* la struttura del valore del oggetto di nome `description` cambia a seconda che l'etichetta sia associata ad un nodo oppure ad un arco.
+Il valore `label` rappresenta l'etichetta sensibile associata al nodo o ad un arco.
+
+Se l'etichetta è associata ad un nodo come nell'esempio precedente allora il valore del nome `object` è *node*.
+Poiché ad un nodo è possibile avere associato più di un etichetta il valore del nome `multiple-labels` specifica se al nodo, a cui l'etichetta è associato, ha più di un etichetta.
+
+Invece se l'etichetta è associata ad in arco il valore del nome `object` è *relationship*.
+In questo caso è necessario specificare nei valori dei nomi `start` e `end` la descrizione dei nodi di partenza e arrivo dell'arco a cui l'etichetta è associato in modo analogo per quanto fatto nelle proprietà.
+Inoltre è possibile omettere il nome `multiple-labels` perché ad un arco può essere associata una sola etichetta.
+
+![Etichetta sensibile associata ad un arco](./img/8.png)
+
+```json
+{
+    "sensitive-data": {
+        "element": "label",
+        "description": {
+            "label": "HAVE_AFFAIR",
+            "object": "relationship",
+            "start": {
+                "label": "Person",
+                "object": "node"
+            },
+            "end": {
+                "label": "Person",
+                "object": "node"
+            }
+        }
+    }
+}
+```
 
 ### Archi
