@@ -5,11 +5,7 @@
             "linked-to": {
                 "label": "Eterosexual",
                 "object": "node",
-                "multiple-labels": true,
-                "labels": [
-                    "Eterosexual",
-                    "Person"
-                ]
+                "multiple-labels": true
             }
         }
     }

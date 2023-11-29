@@ -3,6 +3,7 @@
         "element": "label",
         "description": {
             "label": "HAVE_AFFAIR",
+            "object": "relationship",
             "start": {
                 "label": "Person",
                 "object": "node"
