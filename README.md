@@ -54,24 +54,22 @@ Se la proprietà è associata ad un arco all'interno del valore di `description`
 {
     "sensitive-data": {
         "element": "property",
-        "type": {
-            "description": {
-                "linked-to": {
-                    "label": "FRIEND_OF",
-                    "object": "relationship",
-                    "start": {
-                        "label": "Person",
-                        "object": "node"
-                    },
-                    "end": {
-                        "label": "Person",
-                        "object": "node"
-                    }
+        "description": {
+            "linked-to": {
+                "label": "FRIEND_OF",
+                "object": "relationship",
+                "start": {
+                    "label": "Person",
+                    "object": "node"
                 },
-                "list": false,
-                "key": "interest",
-                "value": "romantic"
-            }
+                "end": {
+                    "label": "Person",
+                    "object": "node"
+                }
+            },
+            "list": false,
+            "key": "interest",
+            "value": "romantic"
         }
     }
 }
@@ -134,3 +132,29 @@ Inoltre è possibile omettere il nome `multiple-labels` perché ad un arco può 
 ```
 
 ### Archi
+
+![Arco sensibile](./img/9.png)
+
+```json
+{
+    "sensitive-data": {
+        "element": "relationship",
+        "description": {
+            "label": "WORSHIP",
+            "start": {
+                "label": "Person",
+                "object": "node"
+            },
+            "end": {
+                "label": "Religion",
+                "object": "node"
+            }
+        }
+    }
+}
+```
+
+La sintassi per esprimere un arco sensibile è simile a quella utilizzata per rappresentare un etichetta associata ad un arco con alcune differenze.
+
+Il valore del nome `element` è *relationship*.
+In questo caso è l'arco in sé rappresenta un dato sensibile ma per identificarlo è bene specificare l'etichetta associata al arco sensibile utilizzando il valore del nome `label`.
