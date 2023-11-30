@@ -88,8 +88,8 @@ Infine le coppie `key`, `value` rappresentano la chiave e il valore della propri
     "sensitive-data": {
         "element": "label",
         "description": {
+            "label": "Eterosexual",
             "linked-to": {
-                "label": "Eterosexual",
                 "object": "node",
                 "multiple-labels": true
             }
@@ -98,15 +98,17 @@ Infine le coppie `key`, `value` rappresentano la chiave e il valore della propri
 }
 ```
 
-Come già accennato per le proprietà lo scopo di molte coppie nome, valore reasta lo stesso.
-Dal momento che il valore di `element` è *label* la struttura del valore del oggetto di nome `description` cambia a seconda che l'etichetta sia associata ad un nodo oppure ad un arco.
+Come già accennato per le proprietà lo scopo di molte coppie nome, valore rimane lo stesso.
+Dal momento che il valore di `element` è *label* la struttura del valore del nome `description`.
 Il valore `label` rappresenta l'etichetta sensibile associata al nodo o ad un arco.
 
-Se l'etichetta è associata ad un nodo come nell'esempio precedente allora il valore del nome `object` è *node*.
+Dal momento che è possibile avere un etichetta associata ad un nodo oppure ad un arco è necessario distinguere i due casi all'interno dal valore del nome `linked-to`.
+
+Se l'etichetta è associata ad un nodo, come nell'esempio precedente, allora il valore del nome `object` è *node*.
 Poiché ad un nodo è possibile avere associato più di un etichetta il valore del nome `multiple-labels` specifica se al nodo, a cui l'etichetta è associato, ha più di un etichetta.
 
 Invece se l'etichetta è associata ad in arco il valore del nome `object` è *relationship*.
-In questo caso è necessario specificare nei valori dei nomi `start` e `end` la descrizione dei nodi di partenza e arrivo dell'arco a cui l'etichetta è associato in modo analogo per quanto fatto nelle proprietà.
+In questo caso è necessario specificare nei valori dei nomi `start` e `end` la descrizione dei nodi di partenza e arrivo dell'arco a cui l'etichetta è associata.
 Inoltre è possibile omettere il nome `multiple-labels` perché ad un arco può essere associata una sola etichetta.
 
 ![Etichetta sensibile associata ad un arco](./img/8.png)

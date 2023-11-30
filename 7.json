@@ -2,8 +2,8 @@
     "sensitive-data": {
         "element": "label",
         "description": {
+            "label": "Eterosexual",
             "linked-to": {
-                "label": "Eterosexual",
                 "object": "node",
                 "multiple-labels": true
             }
