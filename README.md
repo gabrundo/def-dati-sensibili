@@ -6,7 +6,7 @@ Sopra la sintassi di un file json, definisco in insieme di regole per descrivere
 
 ## Sintassi per esprimere un dato sensibili
 Ogni file rappresenta tutti i dati sensibili per quell'istanza dei dati.
-In questi primi esempi suppongo che solo una particolare prorprietà, etichetta, nodo o arco possa rappresentare un informazione sensibile in un LPG.
+In questi primi esempi suppongo che solo una particolare prorprietà, etichetta o arco possa rappresentare un informazione sensibile in un LPG.
 
 Ogni dato sensibile è aspresso come valore di un nome `sensitive-data`.
 In questi primi esempi il valore di `sensitive-data` è un solo oggetto ma in casi più complicati potrebbero essere presenti più dati sensibili in un istanza di dati.
@@ -88,6 +88,10 @@ Infine le coppie `key`, `value` rappresentano la chiave e il valore della propri
         "description": {
             "label": "Eterosexual",
             "linked-to": {
+                "labels": [
+                    "Eterosexual",
+                    "Person"
+                ],
                 "object": "node",
                 "multiple-labels": true
             }
@@ -104,6 +108,7 @@ Dal momento che è possibile avere un etichetta associata ad un nodo oppure ad u
 
 Se l'etichetta è associata ad un nodo, come nell'esempio precedente, allora il valore del nome `object` è *node*.
 Poiché ad un nodo è possibile avere associato più di un etichetta il valore del nome `multiple-labels` specifica se al nodo, a cui l'etichetta è associato, ha più di un etichetta.
+Per identificare correttamente il nodo, a cui l'etichetta è associata, il nome `labels` contiene tutte le etichette del nodo ed è presente solo se è fissato a *true* il valore di `multiple-labels` 
 
 Invece se l'etichetta è associata ad in arco il valore del nome `object` è *relationship*.
 In questo caso è necessario specificare nei valori dei nomi `start` e `end` la descrizione dei nodi di partenza e arrivo dell'arco a cui l'etichetta è associata.
@@ -158,3 +163,75 @@ La sintassi per esprimere un arco sensibile è simile a quella utilizzata per ra
 
 Il valore del nome `element` è *relationship*.
 In questo caso è l'arco in sé rappresenta un dato sensibile ma per identificarlo è bene specificare l'etichetta associata al arco sensibile utilizzando il valore del nome `label`.
+
+## Sintassi per esprimere una combinazione di dati sensibili
+Decido di formalizzare una combinazione di dati sensibili come un array di singoli sensibili utilizzando le regole descritte precedentemente.
+Ho scelto questo approccio perché tutti questi dati sensibili sono presenti nella stessa istanza dei dati.
+
+![Combinazione di due proprietà sensibili](./img/12.png)
+
+```json
+{
+    "sensitive-data": [
+        {
+            "element": "property",
+            "description": {
+                "linked-to": {
+                    "label": "Person",
+                    "object": "node"
+                },
+                "list": false,
+                "key": "code",
+                "value": "RNDGRL"
+            }
+        },
+        {
+            "element": "property",
+            "description": {
+                "linked-to": {
+                    "label": "Person",
+                    "object": "node"
+                },
+                "list": false,
+                "key": "politics",
+                "value": "left-party"
+            }
+        }
+    ]
+}
+```
+
+![Etichetta e arco sensibile in un istanza di dati](./img/14.png)
+
+```json
+{
+    "sensitive-data": [
+        {
+            "element": "label",
+            "description": {
+                "label": "Repuplican",
+                "linked-to": {
+                    "multiple-labels": true,
+                    "object": "node"
+                }
+            }
+        },
+        {
+            "element": "relationship",
+            "description": {
+                "start": {
+                    "label": [
+                        "Person",
+                        "Repuplican"
+                    ],
+                    "object": "node"
+                },
+                "end": {
+                    "label": "Party",
+                    "object": "node"
+                }
+            }
+        }
+    ]
+}
+```

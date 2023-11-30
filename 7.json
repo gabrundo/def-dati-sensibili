@@ -4,6 +4,10 @@
         "description": {
             "label": "Eterosexual",
             "linked-to": {
+                "labels": [
+                    "Eterosexual",
+                    "Person"
+                ],
                 "object": "node",
                 "multiple-labels": true
             }

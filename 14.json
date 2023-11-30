@@ -1,0 +1,30 @@
+{
+    "sensitive-data": [
+        {
+            "element": "label",
+            "description": {
+                "label": "Repuplican",
+                "linked-to": {
+                    "multiple-labels": true,
+                    "object": "node"
+                }
+            }
+        },
+        {
+            "element": "relationship",
+            "description": {
+                "start": {
+                    "label": [
+                        "Person",
+                        "Repuplican"
+                    ],
+                    "object": "node"
+                },
+                "end": {
+                    "label": "Party",
+                    "object": "node"
+                }
+            }
+        }
+    ]
+}
