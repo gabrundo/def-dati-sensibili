@@ -1,0 +1,5 @@
+# Ingnorare tutti i file pdf
+*.pdf
+
+# Ignora il file di formato
+intro.md
