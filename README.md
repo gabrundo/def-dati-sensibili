@@ -1,16 +1,15 @@
 # Formalizzazione di dati sensibili in un file JSON
-Descrizione formale di dati sensibili utilizzando il formato file `JSON`.
+Descrizione formale di dati sensibili in un Label Propety Graph utilizzando il formato file `JSON`.
 La motivazione per cui utilizzo un file di questa estensione è che questo tipo di file è molto utilizzato per scambiare informazioni tra computer ed è noto per la facilità di lettura da parte dell'essere umano.
 
 Sopra la sintassi di un file json, definisco in insieme di regole per descrivere i dati sensibili in un istanza di dati.
 
 ## Sintassi per esprimere un dato sensibili
-Ogni file rappresenta tutti i dati sensibili per quell'istanza dei dati.
+Ogni file json rappresenta tutti i dati sensibili per una particolare istanza di dati.
 In questi primi esempi suppongo che solo una particolare prorprietà, etichetta o arco possa rappresentare un informazione sensibile in un LPG.
 
 Ogni dato sensibile è aspresso come valore di un nome `sensitive-data`.
-In questi primi esempi il valore di `sensitive-data` è un solo oggetto ma in casi più complicati potrebbero essere presenti più dati sensibili in un istanza di dati.
-In situazioni più complesse il valore di `sensitive-data` sarà un array di oggetti.
+In questi primi esempi il valore di `sensitive-data` è un solo oggetto ma in casi più complicati il valore di `sensitive-data` sarà un array di oggetti.
 
 Analizzo ora i vari casi dove ho un solo dato sensibile per ogni istanza dei dati e descrivo i valori per i nomi utilizzati.
 
@@ -75,7 +74,8 @@ Se la proprietà è associata ad un arco all'interno del valore di `description`
 }
 ```
 
-Infine le coppie `key`, `value` rappresentano la chiave e il valore della proprietà sensibile inoltre il valore del nome `list` specifica se il valore della proprità è una lista di valori o meno. 
+Infine le coppie `key`, `value` rappresentano la chiave e il valore della proprietà sensibile.
+Inoltre il valore del nome `list` specifica se il valore della proprità è una lista di valori o meno. 
 
 ### Etichette
 
@@ -100,8 +100,8 @@ Infine le coppie `key`, `value` rappresentano la chiave e il valore della propri
 }
 ```
 
-Come già accennato per le proprietà lo scopo di molte coppie nome, valore rimane lo stesso.
-Dal momento che il valore di `element` è *label* la struttura del valore del nome `description`.
+Come già accennato per le proprietà lo scopo di molte coppie nome-valore rimane lo stesso.
+Dal momento che il valore di `element` è *label* la struttura del valore del nome `description` cambia.
 Il valore `label` rappresenta l'etichetta sensibile associata al nodo o ad un arco.
 
 Dal momento che è possibile avere un etichetta associata ad un nodo oppure ad un arco è necessario distinguere i due casi all'interno dal valore del nome `linked-to`.
