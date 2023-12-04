@@ -1,0 +1,1 @@
+MERGE (:Patitent {name: "Gabriele", disease: "diabetes"})

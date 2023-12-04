@@ -1,0 +1,1 @@
+MERGE (:User {name: "Gabriele", password: "12345"})

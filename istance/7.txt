@@ -1,0 +1,4 @@
+MERGE (g:Person {name: "Gabriele"})
+MERGE (l:Person {name: "Lorenzo"})
+SET g:Eterosexual
+MERGE (g)-[:FRIEND_OF {bond: "relative"}]->(l)

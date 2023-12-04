@@ -1,0 +1,4 @@
+MERGE (g:Person {name: "Gabriele"})
+MERGE (l:Person {name: "Lorenzo"})
+MERGE (g)-[:FRIEND_OF {bond: ["politics", "family"]}]->(l)
+MERGE (l)-[:FRIEND_OF]->(g)

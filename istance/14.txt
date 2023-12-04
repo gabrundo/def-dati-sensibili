@@ -1,0 +1,4 @@
+MERGE (g:Person {name: "Gabriele"})
+MERGE (p:Party {name: "Republican Party", chairwoman: "Ronna McDaniel"})
+SET g:Republican
+MERGE (g)-[:VOTES {date: "30/10/2023"}]->(p)

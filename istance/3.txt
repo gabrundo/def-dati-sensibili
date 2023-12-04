@@ -1,0 +1,3 @@
+MERGE (g:Person {name: "Gabriele"})
+MERGE (s:Person {name: "Susanna"})
+MERGE (g)-[:FRIEND_OF {name: "Susanna"}]->(s)

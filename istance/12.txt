@@ -1,0 +1,1 @@
+MERGE (:Person {name: "Gabriele", code: "RNDGRL", politics: "left-party"})
