@@ -237,4 +237,5 @@ Ho scelto questo approccio perché tutti questi dati sensibili sono presenti nel
 ```
 
 # Query di creazione cypher delle istanze
-Nella cartella istanze sono presenti tutte le query chyper per creare tutte le istanze dei dati per rappresentare le istanze nelle varie figure.
+Nella cartella istanze sono presenti tutte le query chyper per creare le istanze dei dati rappresentate in figura della cartella img.
+Quelle presenti nella cartella sono delle istanze semplici per ragionare sulle modalità di sanificazione dei dati.
