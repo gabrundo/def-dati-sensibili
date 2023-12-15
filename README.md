@@ -244,12 +244,12 @@ Quelle presenti nella cartella sono delle istanze semplici per individuare alcun
 # Sanificazione di un LPG
 
 ## Sanificazione di istanze dati LPG con un solo dato sensibile
-In queste prime istanze dei dati considero che sia presente un solo dato sensibile data un istanza dei dati.
+In questi primi esempi prendo in considerazioni istanze in cui è presente un solo dato sensibile.
 
-Detto questo le modalità di sanificazione dipendono dall'istanza dei dati del grafo e il dato sensibile espresso tramite il file json.
+Le modalità di sanificazione dipendono dall'istanza dei dati e dall dato sensibile, in questo caso espresso tramite il file json.
 Per facilitare la lettura utilizzo la rappresentazione grafica dell'istanza tramite immagine, la query cypher che popola l'istanza dei dati si trova nella cartella *instance*.
 
-Analizzo ora i casi più semplici di sanificazione istanza per istanze evidenziando tecniche di sanificazione e le query che realizzano tali tecniche.
+Analizzo ora i casi più semplici di sanificazione evidenziando le query che realizzano tali tecniche.
 
 ### Istanza dati 1a
 Data l'istanza dei dati *1a* e il dato sensibile espresso tramite file json le possibili modalità di sanificazione sono:
@@ -258,7 +258,7 @@ Data l'istanza dei dati *1a* e il dato sensibile espresso tramite file json le p
 - cancellazione del nodo che contiene la proprietà il cui valore è un dato sensibile.
 
 #### Cancellazione di una proprietà associata ad un nodo
-Per cancellare una proprietà da un nodo, dopo averlo identificato, si utilizza la clausola `REMOVE`.
+Per cancellare una proprietà associata ad un nodo si utilizza la clausola `REMOVE`.
 
 ```
 MATCH (u:User)
@@ -268,11 +268,11 @@ REMOVE u.password
 
 Si nota che in Neo4j:
  
-- non è possibile avere come valore di una proprietà `null`,
-- la clausola `REMOVE` permette di rimuove anche etichette. Se si tenta di rimuovere etichette da un nodo senza etichetta si ottiene un messaggio di errore.
+- non è possibile avere una proprietà con valore `null`,
+- la clausola `REMOVE` permette di rimuove anche etichette. Se si tenta di rimuovere un'etichette da un nodo senza etichetta si ottiene un messaggio di errore.
 
 #### Cancellazione di un nodo
-Per cancellare un nodo che non ha alcuna relazione collegata ad esso si utilizza la clausola `DELETE`.
+Per cancellare un nodo che non ha alcuna relazione entrante o uscente da esso si utilizza la clausola `DELETE`.
 
 ```
 MATCH (u:User)
@@ -280,7 +280,7 @@ WHERE u.password = "12345"
 DELETE u
 ```
 
-Invece per cancellare un nodo e tutte le relazione a cui è collegato, sia in entrata che in uscita, si utilizza la clausola `DETACH DELETE`.
+Per cancellare un nodo e tutte le relazione a cui è collegato, sia in entrata che in uscita, si utilizza la clausola `DETACH DELETE`.
 
 ```
 MATCH (u:User)
@@ -289,12 +289,12 @@ DETACH DELETE u
 ```
 
 ### Istanza dei dati 1b
-In modo simile all'istanza dei dati precedente, l'istanza dei dati *1b* con il relativo dato sensibile può essere sanificata in diverse modalità:
+Data l'istanza dei dati *1b* e il corrispettivo dato sensibile espresso tramite file json, il grafo può essere sanificato in diversi modi:
 
 - cancellando la proprietà la cui chiave è una dato sensibile,
 - cancellando il nodo a cui la proprietà con chiave sensibile è associata.
 
-Non tratto approfonditamente le successive query perché simili a casi già trattati in precedenza.
+Elenco ma non descerivo le query, che realizzano la sanificazione dell'istanza dei dati, perché simili concettualmente alle precedenti.
 
 ```
 MATCH (p:Patient)
@@ -311,11 +311,11 @@ DETACH DELETE p
 ### Istanza dei dati 2
 Data l'istanza dei dati *2* e il corrispettivo dato sensibile espresso tramite file json, il grafo può essere sanificato in diversi modi:
 
-- cancellazione del valore sensibile tra lista di valori della proprietà,
+- cancellazione del valore sensibile dalla lista di valori della proprietà,
 - cancellazione della proprietà che contiene il valore sensibile,
 - cancellazione del nodo a cui è associata la proprietà sensibile.
 
-Le query che realizzano la cancellazione di una proprietà e la cancellazione di un nodo sono già state descritte in precedenza, quindi le riporto solo senza commentarle.
+Le query che realizzano la cancellazione di una proprietà e quella di un nodo sono già state descritte in precedenza, quindi le riporto senza commentarle.
 
 ```
 MATCH (u:User)
@@ -330,8 +330,8 @@ DELETE u
 ```
 
 #### Cancellazione di un valore da una lista di una proprietà associata ad un nodo
-Per modificare la proprietà sensibile, una volta identificato il nodo, si utilizza la clausola la clausola `SET`.
-Inoltre per modificare cancellare dalla lista il valore sensibile si utilizza il list comprehension, dal momento che diversi tipi di dati sono supportati nativamente da Neo4j.
+Per modificare la proprietà sensibile si utilizza la clausola `SET`.
+Inoltre per modificare la lista, contentente il valore sensibile, si utilizza il list comprehension, dal momento che Neo4j supporta nativamente diversi tipi di dati.
 
 ```
 MATCH (u:User)
@@ -343,11 +343,11 @@ SET u.hobbies = [x IN u.hobbies WHERE x <> "politics"]
 Data l'istanza dei dati *3* e il corrispettivo dato sensibile espresso tramite un file json, il grafo può essere sanificato:
 
 - cancellando la proprietà sensibile associata alla relazione,
-- cancellando la relazione a cui è associata la relazione sensibile.
+- cancellando la relazione a cui è associata la proprietà sensibile.
 
 #### Cancellazione di una proprietà associata ad una relazione
 Per cancellare una proprietà associata ad una relazione si utilizza la clausola `REMOVE`.
-Questo comportamento è analogo a quanto visto per la rimozione di una proprietà associata ad un nodo, cambia solo il modo di identificare il nodo.
+Questo modo di procedere è analogo a quanto visto per la rimozione di una proprietà associata ad un nodo.
 
 ```
 MATCH (:Person) -[r:FRIEND_OF]->(:Person)
@@ -363,11 +363,11 @@ DETACH DELETE r
 ```
 
 ### Istanza dei dati 4
-Data l'istanza dei dati *4* e il corrispettivo dato sensibile espresso tramite un file json, il grafo può essere sanificato:
+Data l'istanza dei dati *4* e il corrispettivo dato sensibile espresso tramite un file json, il grafo può essere sanificato in vari modi:
 
-- cancellando il valore sensibile della proprietà associata alla relazione dal momento che la proprietà ha come valore una lista,
+- cancellando il valore sensibile della proprietà associata alla relazione, dal momento che la proprietà ha come valore una lista,
 - cancellando la proprietà sensibile associata alla relazione,
-- cancellando la relazione a cui è associata la relazione.
+- cancellando la relazione a cui è associata la proprietà sensibile.
 
 Le ultime due modalità di sanificazione sono già state tratte nel caso precedente, per questo motivo riporto soltanto le query senza commentarle.
 
@@ -383,8 +383,8 @@ WHERE "politics" IN r.bond
 DETACH DELETE r
 ```
 
-#### Cancellazione di un valore da una lista di una proprietà associato ad una relazione
-In modo analogo a quanto fatto quando il valore di una lista è associato ad un nodo si utilizza la clausola SET per modificare la proprietà associata alla relazione, invece per rimuovere il valore sensibile dalla lista si utilizza una list comprehnsion.
+#### Cancellazione di un valore da una lista di una proprietà associata ad una relazione
+In modo analogo a quanto fatto quando il valore di una lista è associato ad un nodo, si utilizza la clausola `SET` per modificare la proprietà associata alla relazione e per rimuovere il valore sensibile dalla lista si utilizza una list comprehnsion.
 
 ```
 MATCH (:Person)-[r:FRIEND_OF]->(:Person)
@@ -396,9 +396,9 @@ SET r.bond = [x IN r.bond WHERE x <> "politics"]
 Data l'istanza dei dati *7* e il corrispettivo dato sensibile espresso tramite un file json, il grafo può essere sanificato:
 
 - eliminando l'etichetta sensibile dal nodo,
-- cancellando il nodo con l'etichetta sensibile.
+- cancellando il nodo a cui è associata l'etichetta sensibile.
 
-Le modalità per cancellare un nodo sono già state tratte in precedenza quindi riporto solo la query che realizzata questa modalità di sanificazione.
+Le modalità per cancellare un nodo sono già state tratte in precedenza quindi riporto solo la query che realizza questa modalità di sanificazione.
 
 ```
 MATCH (x:Person:Eterosexual)
@@ -406,7 +406,7 @@ DETACH DELETE x
 ```
 
 #### Cancellazione di un etichetta da un nodo
-Dal momento che è possibile avere un nodo senza etichette è possibile, in generale, rimuovere un etichetta da un nodo se questo ha almeno un etichetta.
+Dal momento che è possibile avere un nodo senza etichette, in generale, si può rimuovere un'etichetta da un nodo se questo ha associato almeno un'etichetta.
 Per cancellare un etichetta da un nodo si utilizza la clausola `REMOVE`.
 
 ```
@@ -418,9 +418,9 @@ REMOVE x:Eterosexual
 Data l'istanza dei dati *8* e il corrispettivo dato sensibile espresso tramite un file json, il grafo può essere sanificato:
 
 - cancellando la relazione a cui è associata l'etichetta sensibile,
-- cancellando il nodo di partenza o di arrivo della relazione a cui è associata la l'etichetta sensibile.
+- cancellando il nodo di partenza o di arrivo della relazione a cui è associata l'etichetta sensibile.
 
-Entrambe le modalità di sanificazione sono già state trattate in precedenza per questo motivo riporto soltanto le query che realizzano le strategie di sanificazione riportate.
+Entrambe le modalità di sanificazione sono già state trattate in precedenza, per questo motivo riporto soltanto le query che realizzano le strategie di sanificazione senza commentarle.
 
 ```
 MATCH (:Person)-[r:HAVE_AFFAIR]->(:Person)
@@ -442,7 +442,7 @@ Data l'istanza dei dati *9* e il corrispettivo dato sensibile espresso tramite u
 
 - cancellando la relazione sensibile tra i due nodi.
 
-Questa modalità di sanificazione è già stata trattata in precedenza, quindi riporto la query che realizza questa di sanificazione del grafo.
+Questa modalità di sanificazione è già stata trattata in precedenza, quindi riporto la query che realizza questa modalità di sanificazione del grafo senza commentarla.
 
 ```
 MATCH (:Person)-[w:WORSHIP]->(:Religion)
@@ -450,14 +450,14 @@ DETACH DELETE w
 ```
 
 ## Sanificazione di istanze dati LPG con più di un dato sensibile
-Nelle successive istanze di dati sono presenti più dati sensibili nella stessa istanza dei dati. 
+Nei prossimi esempi ci sono più dati sensibili nella stessa istanza. 
 Infatti, come si può notare nella formalizzazione del dato sensibile, il valore del nome `sensitive-data` è un array di oggetti.
 Quindi per sanificare l'istanza dei dati è necessario che ogni singolo elemento sensibile non sia presente nell'istanza dei dati dopo la sanificazione.
 
 ### Istanza dei dati 12
 Data l'istanza dei dati *12* e il corrispettivo dato sensibile espresso tramite un file json, il grafo può essere sanificato:
 
-- cancellando ogni proprietà sensibile associata ad ogni nodo,
+- cancellando ogni proprietà sensibile associata al nodo,
 - cancellando il nodo che contiene una proprietà sensibile.
 
 #### Cancellazione di ogni proprietà sensibile da un nodo
@@ -481,7 +481,7 @@ DETACH DELETE p
 ### Istanza dei dati 14
 Data l'istanza dei dati *14* e il corrispettivo dato sensibile espresso tramite un file json, il grafo può essere sanificato:
 
-- cancellando il nodo di partenza della relazione perché ha un etichetta sensibile e perché da esso parte un relazione sensibile,
+- cancellando il nodo di partenza della relazione perché ha un'etichetta sensibile e perché da esso parte un relazione sensibile,
 - cancellando l'etichetta sensibile e la relazione sensibile tra i due nodi.
 
 #### Cancellazione del nodo di partenza e della relazione ad esso collegata
@@ -493,7 +493,7 @@ DETACH DELETE p
 ```
 
 #### Cancellazione del etichetta e della relazione tra i due nodi
-Come già trattato in precedenza si ricorda che la clausola `REMOVE` permette di rimuovere un etichetta da un nodo e che la clausola `DETACH DELETE` permette di cancellare una relazione.
+Come già trattato in precedenza si ricorda che la clausola `REMOVE` permette di rimuovere un'etichetta da un nodo e si utilizza la clausola `DETACH DELETE` che permette di cancellare una relazione.
 
 ```
 MATCH (p:Person)-[r:VOTES]->(:Party)
