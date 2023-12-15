@@ -1,53 +1,58 @@
 # Formalizzazione di dati sensibili in un file JSON
-Descrizione formale di dati sensibili in un Label Property Graph utilizzando il formato file `JSON`.
+Descrizione formale di dati sensibili in un **Label Property Graph** utilizzando il formato file `JSON`.
 La motivazione per cui utilizzo un file di questa estensione è che questo tipo di file è molto utilizzato per scambiare informazioni tra computer ed è noto per la facilità di lettura da parte dell'essere umano.
 
-Sopra la sintassi di un file json, definisco in insieme di regole per descrivere i dati sensibili in un'istanza di dati.
+Sopra la sintassi di un file json, definisco un insieme di regole per descrivere i dati sensibili in un'istanza di dati.
 
 ## Sintassi per esprimere un dato sensibile
 Ogni file json rappresenta tutti i dati sensibili per una particolare istanza di dati.
-In questi primi esempi suppongo che solo una particolare proprietà, etichetta o arco possa rappresentare un informazione sensibile in un LPG.
+In questi primi esempi suppongo che solo una particolare proprietà, etichetta o arco possa rappresentare un'informazione sensibile in un LPG.
 
 Ogni dato sensibile è espresso come valore di un nome `sensitive-data`.
 In questi primi esempi il valore di `sensitive-data` è un solo oggetto ma in casi più complicati il valore di `sensitive-data` sarà un array di oggetti.
 
-Analizzo ora i vari casi dove ho un solo dato sensibile per ogni istanza dei dati e descrivo i valori per i nomi utilizzati.
+Analizzo ora i vari casi in cui ho un solo dato sensibile per ogni istanza dei dati e descrivo i valori per i nomi utilizzati.
 
 ### Proprietà
-Data l'istanza dei dati rappresentata in figura e il dato sensibile espresso in rosso.
+Per convenzione l'informazione sensibile di un'istanza, rappresentata con un'immgaine, è espressa in rosso.
 
 ![Proprietà sensibile associata ad un nodo](./img/1.png)
 
 ```json
 {
-	"sensitive-data": {
-		"element": "property",
-		"description": {
-			"linked-to": {
-				"label": "User",
-				"object": "node"
-			},
-			"key": "password",
-			"value": "12345"
-		}
-	}
+    "sensitive-data": {
+        "element": "property",
+        "description": {
+            "linked-to": {
+                "label": "User",
+                "object": "node"
+            },
+            "list": false,
+            "key": "password",
+            "value": "12345"
+        }
+    }
 }
 ```
 
-Il nome `element` ha come possibili valori le stringhe *property*, *label* e *relationship* e descrive a quale elemento di un LPG è considerato un dato sensibile.
+Il nome `element` ha come possibili valori le stringhe *property*, *label* e *relationship* e descrive a quale elemento di un LPG è associato un dato sensibile.
 
-Il valore del nome `description` è un oggetto che fornisce una descrizione dell'elemento in modo tale da identificarlo univocamente.
-La struttura di tale oggetto cambia a seconda del tipo di elemento ovvero proprietà, etichetta, ecc.
+Il valore del nome `description` è un oggetto che fornisce una descrizione dell'elemento con lo scopo di identificarlo univocamente.
+La struttura di tale oggetto cambia a seconda del tipo di elemento ovvero una proprietà, un'etichetta, ecc.
 
 Dal momento che la proprietà può essere associata ad un nodo oppure ad un arco, lo scopo del valore del nome `linked-to` è quello di distinguere i due casi.
-L'oggetto di questo nome è formato da altre due coppie nome, valore. 
-Il valore del nome `object` può essere *node* o *relationship*, mentre il valore del nome `label` specifica l'etichetta dell'elemento a cui la proprietà è associata.
+Il valore di tale oggetto cambia a seconda che il dato sensibile sia associato ad un nodo o ad una relazione.
 
-Se la proprietà è associata ad un nodo oppure ad un arco cambia la struttura dell'oggetto relationship.
+Il valore del nome `object` può essere *node* o *relationship*.
+Il valore del nome `label` specifica l'etichetta dell'elemento a cui la proprietà è associata che sia nodo o relazione.
 
-![Proprietà sensibile associata ad un arco](./img/3.png)
+I nomi `key` e `value` rappresentano la chiave e il valore della proprietà sensibile.
+Il valore del nome `list` specifica se il valore della proprietà è una lista di valori o meno. 
+<!-- Inoltre il nome ... specifica se il dato sensibile della proprietà è la sua chiave o il suo valore. -->
 
-Se la proprietà è associata ad un arco all'interno del valore di `description` sono presenti i nomi `start` e `end` che con i loro oggetti descrivono il nodo di partenza e il nodo di arrivo del arco.
+![Proprietà sensibile associata ad una relazione](./img/3.png)
+
+Se la proprietà è associata ad una relazione, il valore del nome  `linked-to` contiene i nomi `start` e `end` che descrivono il nodo di partenza e il nodo di arrivo della relazione stessa.
 
 ```json
 {
@@ -74,9 +79,6 @@ Se la proprietà è associata ad un arco all'interno del valore di `description`
 }
 ```
 
-Infine le coppie `key`, `value` rappresentano la chiave e il valore della proprietà sensibile.
-Inoltre il valore del nome `list` specifica se il valore della proprietà è una lista di valori o meno. 
-
 ### Etichetta
 
 ![Etichetta sensibile associata ad un nodo](./img/7.png)
@@ -100,19 +102,18 @@ Inoltre il valore del nome `list` specifica se il valore della proprietà è una
 }
 ```
 
-Come già accennato per le proprietà lo scopo di molte coppie nome-valore rimane lo stesso.
+Come già accennato per le proprietà, lo scopo di molte coppie nome-valore rimane lo stesso.
 Dal momento che il valore di `element` è *label* la struttura del valore del nome `description` cambia.
-Il valore `label` rappresenta l'etichetta sensibile associata al nodo o ad un arco.
 
-Dal momento che è possibile avere un etichetta associata ad un nodo oppure ad un arco è necessario distinguere i due casi all'interno dal valore del nome `linked-to`.
+Il valore `label` rappresenta l'etichetta sensibile associata ad un nodo o ad un arco, per questo motivo è necessario distinguere i due casi. 
 
-Se l'etichetta è associata ad un nodo, come nell'esempio precedente, allora il valore del nome `object` è *node*.
-Poiché ad un nodo è possibile avere associato più di un etichetta il valore del nome `multiple-labels` specifica se al nodo, a cui l'etichetta è associato, ha più di un etichetta.
-Per identificare correttamente il nodo, a cui l'etichetta è associata, il nome `labels` contiene tutte le etichette del nodo ed è presente solo se è fissato a *true* il valore di `multiple-labels` 
+Se l'etichetta è associata ad un nodo, come nella figura precedente, allora il valore del nome `object` è *node*.
+Poiché ad un nodo è possibile avere associato più di un'etichetta il valore del nome `multiple-labels` specifica se al nodo ha più di un'etichetta.
+Per identificare correttamente il nodo, a cui l'etichetta è associata, il nome `labels` contiene tutte le etichette del nodo ed è presente solo se è assegnato a *true* il valore di `multiple-labels`.
 
-Invece se l'etichetta è associata ad in arco il valore del nome `object` è *relationship*.
-In questo caso è necessario specificare nei valori dei nomi `start` e `end` la descrizione dei nodi di partenza e arrivo dell'arco a cui l'etichetta è associata.
-Inoltre è possibile omettere il nome `multiple-labels` perché ad un arco può essere associata una sola etichetta.
+Altrimenti, se l'etichetta è associata ad in arco il valore del nome `object` è *relationship*.
+In questo caso è necessario specificare nei valori dei nomi `start` e `end` la descrizione del nodo di partenza e di arrivo.
+Inoltre è possibile omettere il nome `multiple-labels` perché ad un arco può essere associata una e una sola etichetta.
 
 ![Etichetta sensibile associata ad un arco](./img/8.png)
 
@@ -159,14 +160,14 @@ Inoltre è possibile omettere il nome `multiple-labels` perché ad un arco può 
 }
 ```
 
-La sintassi per esprimere un arco sensibile è simile a quella utilizzata per rappresentare un etichetta associata ad un arco con alcune differenze.
+La sintassi per esprimere un arco sensibile è simile a quella utilizzata per rappresentare un etichetta associata ad un arco ma con alcune differenze.
 
 Il valore del nome `element` è *relationship*.
-In questo caso è l'arco in sé rappresenta un dato sensibile ma per identificarlo è bene specificare l'etichetta associata al arco sensibile utilizzando il valore del nome `label`.
+In questo caso è l'arco in sé che rappresenta un dato sensibile ma per identificarlo è bene specificare l'etichetta associata all'arco sensibile utilizzando il valore del nome `label` e le informazioni relative al nodo di partenza e a quello di arrivo.
 
-## Sintassi per esprimere una combinazione di dati sensibili
-Decido di formalizzare una combinazione di dati sensibili come un array di singoli sensibili utilizzando le regole descritte precedentemente.
-Ho scelto questo approccio perché tutti questi dati sensibili sono presenti nella stessa istanza dei dati.
+## Sintassi per esprimere un insieme di dati sensibili
+Decido di formalizzare una insieme di dati sensibili come un array di singoli dati sensibili utilizzando le regole descritte precedentemente.
+Scelgo questo approccio perché il file json rappresenta tutti i dati sensibili per un'istanza particolare di dati.
 
 ![Combinazione di due proprietà sensibili](./img/12.png)
 
@@ -237,8 +238,8 @@ Ho scelto questo approccio perché tutti questi dati sensibili sono presenti nel
 ```
 
 # Query di creazione cypher delle istanze
-Nella cartella istanze sono presenti tutte le query chyper per creare le istanze dei dati rappresentate in figura della cartella img.
-Quelle presenti nella cartella sono delle istanze semplici per ragionare sulle modalità di sanificazione dei dati.
+Nella cartella *instace* sono presenti tutte le query chyper per creare le istanze dei dati che sono rappresentate in figura della cartella *img*.
+Quelle presenti nella cartella sono delle istanze semplici per individuare alcune modalità di sanificazione dell'istanza dei dati.
 
 # Sanificazione di un LPG
 
