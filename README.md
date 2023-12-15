@@ -448,9 +448,54 @@ MATCH (:Person)-[w:WORSHIP]->(:Religion)
 DETACH DELETE w
 ```
 
+## Sanificazione di istanze dati LPG con più di un dato sensibile
+Nelle successive istanze di dati sono presenti più dati sensibili nella stessa istanza dei dati. 
+Infatti, come si può notare nella formalizzazione del dato sensibile, il valore del nome `sensitive-data` è un array di oggetti.
+Quindi per sanificare l'istanza dei dati è necessario che ogni singolo elemento sensibile non sia presente nell'istanza dei dati dopo la sanificazione.
+
 ### Istanza dei dati 12
 Data l'istanza dei dati *12* e il corrispettivo dato sensibile espresso tramite un file json, il grafo può essere sanificato:
 
+- cancellando ogni proprietà sensibile associata ad ogni nodo,
+- cancellando il nodo che contiene una proprietà sensibile.
+
+#### Cancellazione di ogni proprietà sensibile da un nodo
+Come già detto in precedenza per cancellare una proprietà da un nodo si utilizza la clausola `REMOVE`.
+
+```
+MATCH(p:Person)
+WHERE p.code = "RNDGRL" AND p.politics = "left-party"
+REMOVE p.code, p.politics
+```
+
+#### Cancellazione del nodo a cui sono associate proprietà sensibili
+Per cancellare un nodo si utilizza la clausola DETACH DELETE dopo aver idenficato correttamente il nodo con i dati sensibili.
+
+```
+MATCH(p:Person)
+WHERE p.code = "RNDGRL" AND p.politics = "left-party"
+DETACH DELETE p
+```
 
 ### Istanza dei dati 14
 Data l'istanza dei dati *14* e il corrispettivo dato sensibile espresso tramite un file json, il grafo può essere sanificato:
+
+- cancellando il nodo di partenza della relazione perché ha un etichetta sensibile e perché da esso parte un relazione sensibile,
+- cancellando l'etichetta sensibile e la relazione sensibile tra i due nodi.
+
+#### Cancellazione del nodo di partenza e della relazione ad esso collegata
+Osservando che il nodo *p* contiene sia l'etichetta sensibile e che *p* è anche il punto di partenza della relazion, cancellando il nodo, utilizzando la clausola `DETACH DELETE`, si ottiene una versione sanificata del grafo perché questo cancella il nodo e ogni relazione da esso entrante o uscente.
+
+```
+MATCH (p:Person)-[:VOTES]->(:Party)
+DETACH DELETE p
+```
+
+#### Cancellazione del etichetta e della relazione tra i due nodi
+Come già trattato in precedenza si ricorda che la clausola `REMOVE` permette di rimuovere un etichetta da un nodo e che la clasuola `DETACH DELETE` permette di cancellare una relazione.
+
+```
+MATCH (p:Person)-[r:VOTES]->(:Party)
+REMOVE p:Republican
+DETACH DELETE r
+```
