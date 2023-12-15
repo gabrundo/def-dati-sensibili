@@ -240,7 +240,9 @@ Ho scelto questo approccio perché tutti questi dati sensibili sono presenti nel
 Nella cartella istanze sono presenti tutte le query chyper per creare le istanze dei dati rappresentate in figura della cartella img.
 Quelle presenti nella cartella sono delle istanze semplici per ragionare sulle modalità di sanificazione dei dati.
 
-# Sanificazione per istanze con un solo dato sensibile
+# Sanificazione di un LPG
+
+## Sanficazione di istanze dati LPG con un solo dato sensibile
 In queste prime istanze dei dati considero che sia presente un solo dato sensibile data un istanza dei dati.
 
 Detto questo le modalità di sanificazione dipendono dall'istanza dei dati del grafo e il dato sensibile espresso tramite il file json.
@@ -335,3 +337,120 @@ MATCH (u:User)
 WHERE "politics" IN u.hobbies
 SET u.hobbies = [x IN u.hobbies WHERE x <> "politics"]
 ```
+
+### Istanza dei dati 3
+Data l'istanza dei dati *3* e il corrispettivo dato sensibile espresso tramite un file json, il grafo può essere sanificato:
+
+- cancellando la proprietà sensibile associata alla relazione,
+- cancellando la relazione a cui è associata la relazione sensibile.
+
+#### Cancellazione di una proprietà associata ad una relazione
+Per cancellare una proprietà associata ad una relazione si utilizza la clausola `REMOVE`.
+Questo comportamento è analogo a quanto visto per la rimozione di una proprietà associata ad un nodo, cambia solo il modo di identificare il nodo.
+
+```
+MATCH (:Person) -[r:FRIEND_OF]->(:Person)
+REMOVE r.interest
+```
+
+#### Cancellazione di una relazione
+Per cancellare una relazione si utilizza la clausola `DETACH DELETE` specificando il riferimento alla relazione da rimuovere.
+
+```
+MATCH (:Person) -[r:FRIEND_OF]->(:Person)
+DETACH DELETE r
+```
+
+### Istanza dei dati 4
+Data l'istanza dei dati *4* e il corrispettivo dato sensibile espresso tramite un file json, il grafo può essere sanificato:
+
+- cancellando il valore sensibile della proprietà associata alla relazione dal momento che la proprietà ha come valore una lista,
+- cancellando la proprietà sensibile associata alla relazione,
+- cancellado la relazione a cui è associata la relazione.
+
+Le ultime due modalità di sanificazione sono già state tratte nel caso precedente, per questo motivo riporto soltanto le query senza commentarle.
+
+```
+MATCH (:Person)-[r:FRIEND_OF]->(:Person)
+WHERE "politics" IN r.bond
+REMOVE r.
+```
+
+```
+MATCH (:Person)-[r:FRIEND_OF]->(:Person)
+WHERE "politics" IN r.bond
+DETACH DELETE r
+```
+
+#### Cancellazione di un valore da una lista di una proprietà associato ad una relazione
+In modo analogo a quanto fatto quando il valore di una lista è associato ad un nodo si utilizza la clausola SET per modificare la proprietà associata alla relazione, invece per rimuovere il valore sensibile dalla lista si utilizza una list comprehnsion.
+
+```
+MATCH (:Person)-[r:FRIEND_OF]->(:Person)
+WHERE "politics" IN r.bond
+SET r.bond = [x IN r.bond WHERE x <> "politics"]
+```
+
+### Istanza dei dati 7
+Data l'istanza dei dati *7* e il corrispettivo dato sensibile espresso tramite un file json, il grafo può essere sanificato:
+
+- eliminando l'etichetta sensibile dal nodo,
+- cancellando il nodo con l'etichetta sensibile.
+
+Le modalità per cancellare un nodo sono già state tratte in precendenza quindi riporto solo la query che realizzaza questa modalità di sanficazione.
+
+```
+MATCH (x:Person:Eterosexual)
+DETACH DELETE x
+```
+
+#### Cancellazione di un etichetta da un nodo
+Dal momento che è possibile avere un nodo senza etichette è possibile, in generale, rimuovere un etichetta da un nodo se questo ha almeno un etichetta.
+Per cancellare un etichetta da un nodo si utilizza la clausola `REMOVE`.
+
+```
+MATCH (x:Person:Eterosexual)
+REMOVE x:Eterosexual
+```
+
+### Istanza dei dati 8
+Data l'istanza dei dati *8* e il corrispettivo dato sensibile espresso tramite un file json, il grafo può essere sanificato:
+
+- cancellando la relazione a cui è associata l'etichetta sensibile,
+- cancellando il nodo di partenza o di arrivo della relazione a cui è associata la l'etichetta sensibile.
+
+Entrambe le modalità di sanificazione sono già state trattate in precedenza per questo motivo riporto soltanto le query che realizzano le strategie di sanificazione riportate.
+
+```
+MATCH (:Person)-[r:HAVE_AFFAIR]->(:Person)
+DETACH DELETE r
+```
+
+```
+MATCH (x:Person)-[:HAVE_AFFAIR]->(y:Person)
+DETACH DELETE x
+```
+
+```
+MATCH (x:Person)-[:HAVE_AFFAIR]->(y:Person)
+DETACH DELETE y
+```
+
+### Istanza dei dati 9
+Data l'istanza dei dati *9* e il corrispettivo dato sensibile espresso tramite un file json, il grafo può essere sanificato:
+
+- cancellando la relazione sensibile tra i due nodi.
+
+Questa modalità di sanificazione è già stata trattata in precedenza, quindi riporto la query che realizza questa di sanificazione del grafo.
+
+```
+MATCH (:Person)-[w:WORSHIP]->(:Religion)
+DETACH DELETE w
+```
+
+### Istanza dei dati 12
+Data l'istanza dei dati *12* e il corrispettivo dato sensibile espresso tramite un file json, il grafo può essere sanificato:
+
+
+### Istanza dei dati 14
+Data l'istanza dei dati *14* e il corrispettivo dato sensibile espresso tramite un file json, il grafo può essere sanificato:
