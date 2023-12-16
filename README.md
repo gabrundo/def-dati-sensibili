@@ -29,7 +29,8 @@ Per convenzione l'informazione sensibile di un'istanza, rappresentata con un'imm
             },
             "list": false,
             "key": "password",
-            "value": "12345"
+            "value": "12345",
+            "type": "value"
         }
     }
 }
@@ -48,7 +49,7 @@ Il valore del nome `label` specifica l'etichetta dell'elemento a cui la propriet
 
 I nomi `key` e `value` rappresentano la chiave e il valore della proprietà sensibile.
 Il valore del nome `list` specifica se il valore della proprietà è una lista di valori o meno. 
-<!-- Inoltre il nome ... specifica se il dato sensibile della proprietà è la sua chiave o il suo valore. -->
+Inoltre il nome `type` specifica se il dato sensibile della proprietà è la sua chiave o il suo valore.
 
 ![Proprietà sensibile associata ad una relazione](./img/3.png)
 
@@ -56,26 +57,27 @@ Se la proprietà è associata ad una relazione, il valore del nome  `linked-to` 
 
 ```json
 {
-	"sensitive-data": {
-		"element": "property",
-		"description": {
-			"linked-to": {
-				"label": "FRIEND_OF",
-				"object": "relationship",
-				"start": {
-					"label": "Person",
-					"object": "node"
-				},
-				"end": {
-					"label": "Person",
-					"object": "node"
-				}
-			},
-			"list": false,
-			"key": "interest",
-			"value": "romantic"
-		}
-	}
+    "sensitive-data": {
+        "element": "property",
+        "description": {
+            "linked-to": {
+                "label": "FRIEND_OF",
+                "object": "relationship",
+                "start": {
+                    "label": "Person",
+                    "object": "node"
+                },
+                "end": {
+                    "label": "Person",
+                    "object": "node"
+                }
+            },
+            "list": false,
+            "key": "interest",
+            "value": "romantic",
+            "type": "value"
+        }
+    }
 }
 ```
 
@@ -119,21 +121,21 @@ Inoltre è possibile omettere il nome `multiple-labels` perché ad un arco può 
 
 ```json
 {
-	"sensitive-data": {
-		"element": "label",
-		"description": {
-			"label": "HAVE_AFFAIR",
-			"object": "relationship",
-			"start": {
-				"label": "Person",
-				"object": "node"
-			},
-			"end": {
-				"label": "Person",
-				"object": "node"
-			}
-		}
-	}
+    "sensitive-data": {
+        "element": "label",
+        "description": {
+            "label": "HAVE_AFFAIR",
+            "object": "relationship",
+            "start": {
+                "label": "Person",
+                "object": "node"
+            },
+            "end": {
+                "label": "Person",
+                "object": "node"
+            }
+        }
+    }
 }
 ```
 
@@ -143,20 +145,20 @@ Inoltre è possibile omettere il nome `multiple-labels` perché ad un arco può 
 
 ```json
 {
-	"sensitive-data": {
-		"element": "relationship",
-		"description": {
-			"label": "WORSHIP",
-			"start": {
-				"label": "Person",
-				"object": "node"
-			},
-			"end": {
-				"label": "Religion",
-				"object": "node"
-			}
-		}
-	}
+    "sensitive-data": {
+        "element": "relationship",
+        "description": {
+            "label": "WORSHIP",
+            "start": {
+                "label": "Person",
+                "object": "node"
+            },
+            "end": {
+                "label": "Religion",
+                "object": "node"
+            }
+        }
+    }
 }
 ```
 
@@ -173,32 +175,34 @@ Scelgo questo approccio perché il file json rappresenta tutti i dati sensibili 
 
 ```json
 {
-	"sensitive-data": [
-		{
-			"element": "property",
-			"description": {
-				"linked-to": {
-					"label": "Person",
-					"object": "node"
-				},
-				"list": false,
-				"key": "code",
-				"value": "RNDGRL"
-			}
-		},
-		{
-			"element": "property",
-			"description": {
-				"linked-to": {
-					"label": "Person",
-					"object": "node"
-				},
-				"list": false,
-				"key": "politics",
-				"value": "left-party"
-			}
-		}
-	]
+    "sensitive-data": [
+        {
+            "element": "property",
+            "description": {
+                "linked-to": {
+                    "label": "Person",
+                    "object": "node"
+                },
+                "list": false,
+                "key": "code",
+                "value": "RNDGRL",
+                "type": "value"
+            }
+        },
+        {
+            "element": "property",
+            "description": {
+                "linked-to": {
+                    "label": "Person",
+                    "object": "node"
+                },
+                "list": false,
+                "key": "politics",
+                "value": "left-party",
+                "type": "key"
+            }
+        }
+    ]
 }
 ```
 
@@ -206,34 +210,34 @@ Scelgo questo approccio perché il file json rappresenta tutti i dati sensibili 
 
 ```json
 {
-	"sensitive-data": [
-		{
-			"element": "label",
-			"description": {
-				"label": "Repuplican",
-				"linked-to": {
-					"multiple-labels": true,
-					"object": "node"
-				}
-			}
-		},
-		{
-			"element": "relationship",
-			"description": {
-				"start": {
-					"label": [
-						"Person",
-						"Repuplican"
-					],
-					"object": "node"
-				},
-				"end": {
-					"label": "Party",
-					"object": "node"
-				}
-			}
-		}
-	]
+    "sensitive-data": [
+        {
+            "element": "label",
+            "description": {
+                "label": "Repuplican",
+                "linked-to": {
+                    "multiple-labels": true,
+                    "object": "node"
+                }
+            }
+        },
+        {
+            "element": "relationship",
+            "description": {
+                "start": {
+                    "label": [
+                        "Person",
+                        "Repuplican"
+                    ],
+                    "object": "node"
+                },
+                "end": {
+                    "label": "Party",
+                    "object": "node"
+                }
+            }
+        }
+    ]
 }
 ```
 

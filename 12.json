@@ -9,7 +9,8 @@
                 },
                 "list": false,
                 "key": "code",
-                "value": "RNDGRL"
+                "value": "RNDGRL",
+                "type": "value"
             }
         },
         {
@@ -21,7 +22,8 @@
                 },
                 "list": false,
                 "key": "politics",
-                "value": "left-party"
+                "value": "left-party",
+                "type": "key"
             }
         }
     ]

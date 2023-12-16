@@ -8,7 +8,8 @@
             },
             "list": true,
             "key": "hobbies",
-            "value": "politics"
+            "value": "politics",
+            "type": "value"
         }
     }
 }

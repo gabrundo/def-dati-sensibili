@@ -16,7 +16,8 @@
             },
             "list": true,
             "key": "bond",
-            "value": "politics"
+            "value": "politics",
+            "type": "value"
         }
     }
 }

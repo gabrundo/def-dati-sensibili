@@ -16,7 +16,8 @@
             },
             "list": false,
             "key": "interest",
-            "value": "romantic"
+            "value": "romantic",
+            "type": "value"
         }
     }
 }
