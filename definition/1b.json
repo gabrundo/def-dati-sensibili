@@ -6,6 +6,7 @@
                 "label": "Patient",
                 "object": "node"
             },
+            "list": false,
             "key": "disease",
             "value": "diabetes",
             "type": "key"

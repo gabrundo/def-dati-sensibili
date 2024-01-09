@@ -49,11 +49,11 @@ Il valore del nome `label` specifica l'etichetta dell'elemento a cui la propriet
 
 I nomi `key` e `value` rappresentano la chiave e il valore della proprietà sensibile.
 Il valore del nome `list` specifica se il valore della proprietà è una lista di valori o meno. 
-Inoltre il nome `type` specifica se il dato sensibile della proprietà è la sua chiave o il suo valore.
+Inoltre il nome `type` specifica se il dato sensibile della proprietà è la sua *chiave* o il suo *valore*.
 
 ![Proprietà sensibile associata ad una relazione](./img/3.png)
 
-Se la proprietà è associata ad una relazione, il valore del nome  `linked-to` contiene i nomi `start` e `end` che descrivono il nodo di partenza e il nodo di arrivo della relazione stessa.
+Se una proprietà è associata ad una relazione, il valore del nome `linked-to` contiene i nomi `start` e `end` che descrivono il nodo di partenza e il nodo di arrivo della relazione stessa.
 
 ```json
 {
@@ -168,7 +168,7 @@ Il valore del nome `element` è *relationship*.
 In questo caso è l'arco in sé che rappresenta un dato sensibile ma per identificarlo è bene specificare l'etichetta associata all'arco sensibile utilizzando il valore del nome `label` e le informazioni relative al nodo di partenza e a quello di arrivo.
 
 ## Sintassi per esprimere un insieme di dati sensibili
-Decido di formalizzare una insieme di dati sensibili come un array di singoli dati sensibili utilizzando le regole descritte precedentemente.
+Decido di formalizzare un insieme di dati sensibili come un array di singoli dati sensibili utilizzando le regole descritte precedentemente.
 Scelgo questo approccio perché il file json rappresenta tutti i dati sensibili per un'istanza particolare di dati.
 
 ![Combinazione di due proprietà sensibili](./img/12.png)
