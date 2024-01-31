@@ -303,7 +303,7 @@ Elenco ma non descerivo le query, che realizzano la sanificazione dell'istanza d
 ```
 MATCH (p:Patient)
 WHERE p.disease = "diabetes"
-REMOVE d.disease
+REMOVE p.disease
 ```
 
 ```
